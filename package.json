@@ -1,0 +1,25 @@
+{
+  "name": "atto-vscode-syntaxhighlighter",
+  "displayName": "atto",
+  "description": "Syntax highlighting for atto language.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.89.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "at",
+      "aliases": ["atto", "at"],
+      "extensions": [".at"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "at",
+      "scopeName": "source.at",
+      "path": "./syntaxes/at.tmLanguage.json"
+    }]
+  }
+}

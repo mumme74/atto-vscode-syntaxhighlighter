@@ -1,0 +1,145 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "atto",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#fn_definition"
+		},
+		{
+			"include": "#expression"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#digits"
+		},
+		{
+			"include": "#identifiers"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#decorator"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.at",
+					"match": "\\b(if)\\b"
+				},
+				{
+					"name": "constant.language.boolean.at",
+					"match": "\\b(true|false)\\b"
+				},{
+					"name": "constant.language.null.at",
+					"match": "\\b(null)\\b"
+				},{
+					"name": "support.function.builtin",
+					"match": "\\b(__(?:head|tail|fuse|pair|litr|str|words|input|print|eq|add|neg|mul|div|rem|less|lesseq|print))\\b"
+				},{
+					"name": "support.function.builtin",
+					"match": "\\b(fuse|pair|litr|str|words|input|print)\\b"
+				},{
+					"name": "keyword.operator.at",
+					"match": "(\\+|-|\\*|\\/|%|=|!)"
+				},{
+					"name": "keyword.operator.at",
+					"match": "\\b(neg|or|and|head|tail)\\b"
+				}
+			]
+		},
+		"fn_definition": {
+			"patterns": [
+				{
+					"match": "\\b(fn)\\b\\s+((?!\\b(?:is))\\b.*)\\b(is)\\b",
+					"captures": {
+						"1": {"name": "storage.type.function.at"},
+						"2": { "patterns": [{"include": "#fn_name"}]},
+						"3": {"name": "storage.type.function.at"}
+					}
+				}
+			]
+		},
+		"fn_name":{
+			"patterns": [{
+				"match": "([a-zA-Z_]+[a-zA-Z0-9_\\-]*)(\\s.*)",
+				"captures": {
+					"1": {"name": "entity.name.function.at"},
+					"2": {"patterns": [{"include": "#fn_params"}]}
+				}
+			}]
+		},
+		"fn_params":  {
+			"patterns": [{
+				"name": "variable.parameter.at",
+				"match": "\\b[a-zA-Z_]+[a-zA-Z0-9_\\-]*\\b"
+			}]
+		},
+		"expression": {
+			"patterns": [{
+				"match": "([a-zA-Z_]+[a-zA-Z0-9_\\-]*)\\s+(.*)",
+				"captures": {
+					"1": {"name": "support.function.at"},
+					"2": {
+						"patterns": [{
+							"include": "#keywords"
+						},{
+							"include": "#identifiers"
+						},{
+							"include": "#digits"
+						},{
+							"include": "#strings"
+						}]
+					}
+				}
+			}]
+		},
+		"strings": {
+			"name": "string.quoted.double.at",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.at",
+					"match": "\\\\."
+				}
+			]
+		},
+		"digits": {
+			"patterns": [{
+				"name": "constant.numeric.at",
+				"match": "\\b[0-9]+(?:.[0-9]+)?\\b"
+			}]
+		},
+		"identifiers": {
+			"patterns": [{
+				"name": "variable.other.readwrite.at",
+				"match": "\\b[a-zA-Z_][a-zA-Z_0-9\\-]*\\b"
+			},
+			{
+				"name": "support.function.builtin.at",
+				"match": "\\b(print)\\b"
+			}]
+		},
+		"comments": {
+			"patterns": [{
+				"name": "comment.line.number-sign.at",
+				"match": "#\\s+\".*\""
+			}]
+		},
+		"decorator": {
+			"patterns": [{
+				"name": "support.type",
+				"match": "(#|@)"
+			}]
+		}
+	},
+	"scopeName": "source.at"
+}
